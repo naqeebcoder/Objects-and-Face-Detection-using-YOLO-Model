@@ -1,83 +1,102 @@
-# 🧠 Counting Objects and Face Detection using OpenCV
+# 🧠 Object Counting and Face Detection with YOLOv8 & OpenCV
 
-This project uses **YOLOv8** and **OpenCV** to detect and count objects, specifically focusing on identifying people and then detecting **faces** within the detected persons. It is implemented in **Google Colab** and leverages both **Ultralytics YOLO** and **Haar Cascades**.
+A computer vision project that combines **YOLOv8** object detection with **OpenCV Haar Cascade** face detection to identify, count, and analyze people within images. The project is designed and tested in **Google Colab**, making it easy to run without complex local setup.
 
-## 🔍 Features
+## 🚀 Overview
 
-* Upload and analyze an image using `Google Colab`.
-* Detect all objects using the YOLOv8 model.
-* Highlight and count the number of **persons** detected.
-* Perform **face detection** on each person using OpenCV's Haar cascade classifier.
-* Save the annotated image with bounding boxes and labels.
-* Display the final output image in the notebook.
+This application detects objects in an image using the **YOLOv8** model and then performs additional **face detection** within each detected person. The result is an annotated image showing detected objects, people, and faces, along with object counts.
 
-## 📸 Demo
+## ✨ Features
 
-> ![Sample Output](output_with_boxes.jpg)
+* Upload and process images directly in **Google Colab**.
+* Detect multiple object classes using **YOLOv8**.
+* Count the total number of detected objects.
+* Identify and count all detected **persons**.
+* Perform **face detection** within person regions using OpenCV's Haar Cascade classifier.
+* Draw bounding boxes and labels around detected objects and faces.
+* Save the processed image with annotations.
+* Display the final output image within the notebook.
 
-## 🛠️ Technologies Used
+## 📸 Sample Output
+
+![Sample Output](output_with_boxes.jpg)
+
+## 🛠️ Technologies and Libraries
 
 * **Python**
 * **OpenCV**
 * **Ultralytics YOLOv8 (`yolov8n.pt`)**
 * **Google Colab**
-* **Haar Cascade Classifier**
+* **Haar Cascade Face Detection**
 
-## 📦 Requirements
+## 📦 Installation
 
-To run this project in Google Colab:
+Install the required dependencies:
 
 ```bash
 pip install ultralytics opencv-python
 ```
 
-No manual installation of `cv2` is needed in Colab — it is preinstalled.
+> Note: OpenCV (`cv2`) is already available in Google Colab, so no additional setup is typically required.
 
-## 📁 Project Structure
+## 📂 Project Structure
 
-```
+```text
 .
 ├── counting_objects_face_detection.ipynb
 ├── output_with_boxes.jpg
 └── README.md
 ```
 
-## 🚀 How It Works
+## ⚙️ Workflow
 
-1. **Upload an image** in Google Colab.
-2. **YOLOv8** detects all objects in the image.
-3. Each detected object is labeled and counted.
-4. If a detected object is a **person**, it is passed to the **Haar Cascade** classifier.
-5. **Faces** are detected inside the person region.
-6. Output is saved as `output_with_boxes.jpg` with all detections highlighted.
+1. Upload an image to the Colab environment.
+2. Load the YOLOv8 model.
+3. Detect and classify objects in the image.
+4. Count all detected objects.
+5. Filter detections belonging to the **person** class.
+6. Apply Haar Cascade face detection to each detected person.
+7. Draw bounding boxes and labels on the image.
+8. Save the annotated image as `output_with_boxes.jpg`.
+9. Display the final processed image.
 
-## 🔎 Sample Code Snippet
+## 🔍 Code Example
 
 ```python
+from ultralytics import YOLO
+import cv2
+
+# Load YOLOv8 model
 model = YOLO("yolov8n.pt")
+
+# Run object detection
 results = model(image)
 detections = results[0]
+
+# Count detected objects
 total_objects = len(detections.boxes)
 
-# Face detection on detected 'person' boxes
-face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+# Load Haar Cascade for face detection
+face_cascade = cv2.CascadeClassifier(
+    cv2.data.haarcascades + "haarcascade_frontalface_default.xml"
+)
 ```
 
-## 💡 Future Improvements
+## 📈 Future Enhancements
 
-* Switch to deep learning-based face detection for better accuracy.
-* Add support for real-time webcam detection.
-* Integrate a simple web UI using Gradio or Streamlit.
-* Count and visualize other specific objects (e.g., vehicles, animals).
+* Replace Haar Cascades with modern deep learning-based face detectors.
+* Support real-time webcam and video stream processing.
+* Build an interactive web application using **Gradio** or **Streamlit**.
+* Generate detailed detection statistics and analytics.
+* Extend object counting capabilities to specific categories such as vehicles, animals, and safety equipment.
 
-## 👤 Author
+## 👨‍💻 Author
 
-**Deepak Misal**
-🔗 [LinkedIn Profile](https://www.linkedin.com/in/deepakmisal24/)
+**Naqeeb Ullah**
 
-**Samarth Bhutnal**
-🔗 [LinkedIn Profile](https://www.linkedin.com/in/samarth-bhutnal-523446334/)
+Connect on LinkedIn:
+https://www.linkedin.com/in/naqeeb-ullah-bb46a9150/
 
 ---
 
-Let me know if you'd like a version with Colab badges or want to auto-generate the sample image from your code output.
+If you find this project useful, consider giving it a ⭐ and contributing to future improvements.
